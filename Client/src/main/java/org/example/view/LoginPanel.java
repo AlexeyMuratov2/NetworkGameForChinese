@@ -12,6 +12,7 @@ import java.util.Objects;
 
 @Getter
 public class LoginPanel extends JPanel {
+    private static LoginPanel instance;
     private final JLabel titleLabel = new JLabel("汉语冒险 | Chinese Quest", SwingConstants.CENTER);
     private final JButton loginButton = new JButton("🎮 PLay");
     private final JButton switchToRegisterButton = new JButton("📝 Register");
@@ -19,7 +20,7 @@ public class LoginPanel extends JPanel {
     private final JPasswordField passField = new JPasswordField(20);
     private BufferedImage backgroundImage;
 
-    public LoginPanel() {
+    private LoginPanel() {
         setPreferredSize(new Dimension(1280, 900));
 
         try {
@@ -89,6 +90,17 @@ public class LoginPanel extends JPanel {
         centerPanel.add(switchToRegisterButton);
 
         add(centerPanel, BorderLayout.CENTER);
+    }
+
+    public static LoginPanel getInstance(){
+        if(instance != null){
+            synchronized (LoginPanel.class){
+                if(instance != null){
+                    instance = new LoginPanel();
+                }
+            }
+        }
+        return instance;
     }
 
     @Override

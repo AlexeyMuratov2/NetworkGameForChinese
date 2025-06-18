@@ -17,7 +17,7 @@ public class Main {
 //        client.sendMessage("hello");
 //        client.sendMessage("echo сам себе поотвечай");
 //        client.stop();
-        MainFrame mainFrame = new MainFrame();
+        MainFrame mainFrame = MainFrame.getInstance();
         mainFrame.switchTo(Panels.LOGIN);
     }
 }
