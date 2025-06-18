@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.commands.Command;
+import org.example.commands.CommandManager;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -62,7 +65,18 @@ public class ClientConnectionHandler implements Runnable {
     }
 
     private void handleMessage(String message) {
-        logger.info("Received message: " + message);
+        //TODO THIS
+        String[] parts = message.trim().split(" ", 2);
+        String commandName = parts[0];
+        String args = parts.length > 1 ? parts[1] : "";
+        Command commandObject = CommandManager.getCommand(commandName);
+        logger.info("Executing command: " + commandName + " with args: " + args);
+        if (commandObject != null) {
+            String response = commandObject.execute(args);
+            sendMessage(response);
+        }else {
+            throw new IllegalArgumentException("Unknown command: " + commandName);
+        }
     }
 
     public void stop() {

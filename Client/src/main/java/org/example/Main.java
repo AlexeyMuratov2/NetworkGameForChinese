@@ -1,11 +1,14 @@
 package org.example;
 
+import org.example.commands.CommandManager;
+
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args){
+        CommandManager.registerCommands();
         ExecutorService singleThreadedExecutor = Executors.newSingleThreadExecutor();
         ClientConnectionHandler client = new ClientConnectionHandler();
         singleThreadedExecutor.submit(client);
