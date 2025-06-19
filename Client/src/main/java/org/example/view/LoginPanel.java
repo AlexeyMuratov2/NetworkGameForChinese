@@ -18,6 +18,8 @@ public class LoginPanel extends JPanel {
     private final JButton switchToRegisterButton = new JButton("📝 Register");
     private final JTextField loginField = new JTextField(20);
     private final JPasswordField passField = new JPasswordField(20);
+    private final JLabel errorLabel = new JLabel("Login failed. Please try again.", SwingConstants.CENTER);
+
     private BufferedImage backgroundImage;
 
     private LoginPanel() {
@@ -77,6 +79,14 @@ public class LoginPanel extends JPanel {
         switchToRegisterButton.setMaximumSize(new Dimension(600, 50));
         switchToRegisterButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Error message
+        errorLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setVisible(false); // скрыт по умолчанию
+        errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(errorLabel);
+
         centerPanel.add(userLabel);
         centerPanel.add(Box.createVerticalStrut(10));
         centerPanel.add(loginField);
@@ -114,5 +124,15 @@ public class LoginPanel extends JPanel {
             g2d.setPaint(gradient);
             g2d.fillRect(0, 0, getWidth(), getHeight());
         }
+    }
+
+    public void showLoginFailedMessage() {
+        errorLabel.setVisible(true);
+        revalidate();
+        repaint();
+    }
+
+    public void hideLoginFailedMessage() {
+        errorLabel.setVisible(false);
     }
 }

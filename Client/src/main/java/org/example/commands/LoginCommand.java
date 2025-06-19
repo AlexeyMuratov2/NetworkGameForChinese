@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import org.example.view.LoginPanel;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
 
@@ -11,8 +12,8 @@ public class LoginCommand implements Command{
     public void execute(String args){
         if (args.equals("success")){
             logger.info("successfully login");
-            MainFrame.getInstance().switchTo(Panels.REGISTER);
         }else{
+            LoginPanel.getInstance().showLoginFailedMessage();
             logger.info("login failed, try again");
         }
     }

@@ -19,5 +19,6 @@ public class CommandManager {
         addCommand("hello", new HelloCommand());
         addCommand("echo", new EchoCommand());
         addCommand("login", new LoginCommand());
+        addCommand("register", new RegisterCommand());
     }
 }
