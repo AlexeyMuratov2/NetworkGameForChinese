@@ -14,15 +14,13 @@ public class ClientHandler implements Runnable{
     private final DataOutputStream dataOutputStream;
     private final DataInputStream dataInputStream;
     private final Socket socket;
-    private final int PORT;
+    private String USERNAME;
     private volatile boolean running = true;
 
     public ClientHandler(Socket socket) throws IOException {
         this.socket = socket;
         dataOutputStream = new DataOutputStream(socket.getOutputStream());
         dataInputStream = new DataInputStream(socket.getInputStream());
-        PORT = socket.getPort();
-        ClientManager.addClient(PORT, this);
     }
 
     @Override
@@ -44,7 +42,6 @@ public class ClientHandler implements Runnable{
                 socket.close();
                 dataOutputStream.close();
                 dataInputStream.close();
-                ClientManager.removeClient(PORT);
                 logger.info("Client disconnected");
             } catch (IOException e) {
                 logger.severe(e.getMessage());

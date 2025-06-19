@@ -1,6 +1,6 @@
 package org.example.commands;
 
-import org.example.ClientConnectionHandler;
+import org.example.model.ClientConnectionHandler;
 
 import java.util.logging.Logger;
 

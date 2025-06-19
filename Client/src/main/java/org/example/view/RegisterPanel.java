@@ -96,9 +96,9 @@ public class RegisterPanel extends JPanel {
     }
 
     public static RegisterPanel getInstance(){
-        if(instance != null){
+        if(instance == null){
             synchronized (RegisterPanel.class){
-                if (instance != null){
+                if (instance == null){
                     instance = new RegisterPanel();
                 }
             }

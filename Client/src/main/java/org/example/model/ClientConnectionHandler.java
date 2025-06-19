@@ -1,4 +1,4 @@
-package org.example;
+package org.example.model;
 
 import org.example.commands.Command;
 import org.example.commands.CommandManager;
@@ -12,12 +12,26 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Logger;
 
 public class ClientConnectionHandler implements Runnable {
+    private static ClientConnectionHandler instace;
     private static final int PORT = 12345;
     private static final String HOST = "localhost";
     private static final Logger logger = Logger.getLogger(ClientConnectionHandler.class.getName());
     private DataOutputStream outputStream;
     private DataInputStream inputStream;
     private volatile boolean running = true;
+
+    private ClientConnectionHandler(){}
+
+    public static ClientConnectionHandler getInstance(){
+        if (instace == null){
+            synchronized (ClientConnectionHandler.class){
+                if (instace == null){
+                    instace = new ClientConnectionHandler();
+                }
+            }
+        }
+        return instace;
+    }
 
     private final BlockingQueue<String> outboundMessages = new LinkedBlockingQueue<>();
 

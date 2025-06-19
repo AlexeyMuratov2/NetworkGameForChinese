@@ -17,5 +17,6 @@ public class CommandManager {
     public static void registerCommands() {
         addCommand("hello", new HelloCommand());
         addCommand("echo", new EchoCommand());
+        addCommand("login", new LoginCommand());
     }
 }

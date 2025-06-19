@@ -93,9 +93,9 @@ public class LoginPanel extends JPanel {
     }
 
     public static LoginPanel getInstance(){
-        if(instance != null){
+        if(instance == null){
             synchronized (LoginPanel.class){
-                if(instance != null){
+                if(instance == null){
                     instance = new LoginPanel();
                 }
             }
