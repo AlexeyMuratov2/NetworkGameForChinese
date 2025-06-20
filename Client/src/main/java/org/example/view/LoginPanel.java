@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Getter
+@org.springframework.stereotype.Component
 public class LoginPanel extends JPanel {
-    private static LoginPanel instance;
     private final JLabel titleLabel = new JLabel("汉语冒险 | Chinese Quest", SwingConstants.CENTER);
     private final JButton loginButton = new JButton("🎮 PLay");
     private final JButton switchToRegisterButton = new JButton("📝 Register");
@@ -22,7 +22,7 @@ public class LoginPanel extends JPanel {
 
     private BufferedImage backgroundImage;
 
-    private LoginPanel() {
+    public LoginPanel() {
         setPreferredSize(new Dimension(1280, 900));
 
         try {
@@ -100,17 +100,6 @@ public class LoginPanel extends JPanel {
         centerPanel.add(switchToRegisterButton);
 
         add(centerPanel, BorderLayout.CENTER);
-    }
-
-    public static LoginPanel getInstance(){
-        if(instance == null){
-            synchronized (LoginPanel.class){
-                if(instance == null){
-                    instance = new LoginPanel();
-                }
-            }
-        }
-        return instance;
     }
 
     @Override

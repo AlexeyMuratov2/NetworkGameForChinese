@@ -6,16 +6,25 @@ import org.example.view.LoginPanel;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
 import org.example.view.RegisterPanel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RegisterPanelController {
-    private final MainFrame mainFrame = MainFrame.getInstance();
-    private final RegisterPanel registerPanel = RegisterPanel.getInstance();
+    private final MainFrame mainFrame;
+    private final RegisterPanel registerPanel;
+    private final ClientConnectionHandler clientConnectionHandler;
 
     private String username;
     private String passwd;
     private String passwdConfirm;
 
-    public RegisterPanelController(){
+    @Autowired
+    public RegisterPanelController(MainFrame mainFrame, RegisterPanel registerPanel, ClientConnectionHandler clientConnectionHandler){
+        this.mainFrame = mainFrame;
+        this.registerPanel = registerPanel;
+        this.clientConnectionHandler = clientConnectionHandler;
+
         registerPanel.getRegisterButton().addActionListener(e -> onRegisterClick());
         registerPanel.getSwitchToLoginButton().addActionListener(e -> onReturnButtonClick());
     }
@@ -27,7 +36,7 @@ public class RegisterPanelController {
 
         if (passwd.equals(passwdConfirm)){
             String hashPass = HashUtils.sha256(passwd);
-            ClientConnectionHandler.getInstance().sendMessage("register " + username + " " + hashPass);
+            clientConnectionHandler.sendMessage("register " + username + " " + hashPass);
         }else {
             registerPanel.showPasswordMismatchMessage();
         }

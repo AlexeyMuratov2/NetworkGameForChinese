@@ -1,5 +1,6 @@
 package org.example.database;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +11,7 @@ public class DatabaseSetupRepository {
     private JdbcTemplate template;
     private static final Logger logger = Logger.getLogger(DatabaseSetupRepository.class.getName());
 
+    @Autowired
     public DatabaseSetupRepository(JdbcTemplate template){
         this.template = template;
         logger.info("setting up all tables");

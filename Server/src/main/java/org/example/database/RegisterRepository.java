@@ -1,5 +1,6 @@
 package org.example.database;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,8 +10,9 @@ import java.util.logging.Logger;
 @Repository
 public class RegisterRepository {
     private JdbcTemplate template;
-    private static final Logger logger = Logger.getLogger(DatabaseSetupRepository.class.getName());
+    private static final Logger logger = Logger.getLogger(RegisterRepository.class.getName());
 
+    @Autowired
     public RegisterRepository(JdbcTemplate template) {
         this.template = template;
     }

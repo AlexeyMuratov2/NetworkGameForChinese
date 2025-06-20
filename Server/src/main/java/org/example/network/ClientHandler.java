@@ -1,13 +1,16 @@
-package org.example;
+package org.example.network;
 
 import org.example.commands.Command;
 import org.example.commands.CommandManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Logger;
+
 
 public class ClientHandler implements Runnable{
     private static final Logger logger = Logger.getLogger(ClientHandler.class.getName());
@@ -16,8 +19,10 @@ public class ClientHandler implements Runnable{
     private final Socket socket;
     private String USERNAME;
     private volatile boolean running = true;
+    private CommandManager commandManager;
 
-    public ClientHandler(Socket socket) throws IOException {
+    public ClientHandler(Socket socket, CommandManager commandManager) throws IOException {
+        this.commandManager = commandManager;
         this.socket = socket;
         dataOutputStream = new DataOutputStream(socket.getOutputStream());
         dataInputStream = new DataInputStream(socket.getInputStream());
@@ -25,19 +30,19 @@ public class ClientHandler implements Runnable{
 
     @Override
     public void run() {
-        logger.info("Client connected" + socket.toString());
+        logger.info("Client connected " + socket.toString());
 
-        try (DataInputStream dataInputStream = new DataInputStream(socket.getInputStream())) {
+        try {
             while (running) {
-                String message = dataInputStream.readUTF();
+                String message = dataInputStream.readUTF(); // используй поле, не создавай новое
                 logger.info("Message received: " + message);
                 handleMessage(message);
             }
 
-        }catch (IOException e){
-            logger.severe(e.getMessage());
+        } catch (IOException e) {
+            logger.severe("Error in ClientHandler: " + e.getMessage());
 
-        }finally {
+        } finally {
             try {
                 socket.close();
                 dataOutputStream.close();
@@ -63,7 +68,7 @@ public class ClientHandler implements Runnable{
         String[] parts = message.trim().split(" ", 2);
         String commandName = parts[0];
         String args = parts.length > 1 ? parts[1] : "";
-        Command commandObject = CommandManager.getCommand(commandName);
+        Command commandObject = commandManager.getCommand(commandName);
         if (commandObject != null) {
             String response = commandObject.execute(args);
             logger.info("Executed command: " + commandName);

@@ -11,9 +11,8 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Getter
+@org.springframework.stereotype.Component
 public class RegisterPanel extends JPanel {
-    private static RegisterPanel instance;
-
     private final JLabel titleLabel = new JLabel("Create Your Account", SwingConstants.CENTER);
     private final JTextField usernameField = new JTextField(20);
     private final JPasswordField passwordField = new JPasswordField(20);
@@ -24,7 +23,7 @@ public class RegisterPanel extends JPanel {
 
     private BufferedImage backgroundImage;
 
-    private RegisterPanel() {
+    public RegisterPanel() {
         setPreferredSize(new Dimension(1280, 900));
         setLayout(new BorderLayout());
 
@@ -122,17 +121,6 @@ public class RegisterPanel extends JPanel {
         centerPanel.add(switchToLoginButton);
 
         add(centerPanel, BorderLayout.CENTER);
-    }
-
-    public static RegisterPanel getInstance() {
-        if (instance == null) {
-            synchronized (RegisterPanel.class) {
-                if (instance == null) {
-                    instance = new RegisterPanel();
-                }
-            }
-        }
-        return instance;
     }
 
     public void showPasswordMismatchMessage() {

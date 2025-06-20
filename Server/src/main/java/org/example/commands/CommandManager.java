@@ -1,24 +1,32 @@
 package org.example.commands;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class CommandManager {
-    private static final Map<String, Command> commands = new ConcurrentHashMap<>();
+    private final Map<String, Command> commandsMap = new ConcurrentHashMap<>();
 
-    public static Command getCommand(String command) {
-        return commands.get(command);
+    public Command getCommand(String command) {
+        return commandsMap.get(command);
     }
 
-    private static void addCommand(String command, Command commandObject) {
-        commands.put(command, commandObject);
-    }
-
-    public static void registerAllCommands() {
-        addCommand("hello", new HelloCommand());
-        addCommand("echo", new EchoCommand());
-        addCommand("login", new LoginCommand());
-        addCommand("register", new RegisterCommand());
+    @Autowired
+    public CommandManager(
+            EchoCommand echoCommand,
+            GetLobbyCommand getLobbyCommand,
+            HelloCommand helloCommand,
+            LoginCommand loginCommand,
+            RegisterCommand registerCommand
+    ){
+        commandsMap.put("hello", helloCommand);
+        commandsMap.put("echo", echoCommand);
+        commandsMap.put("login", loginCommand);
+        commandsMap.put("register", registerCommand);
+        commandsMap.put("getLobby", getLobbyCommand);
     }
 }
