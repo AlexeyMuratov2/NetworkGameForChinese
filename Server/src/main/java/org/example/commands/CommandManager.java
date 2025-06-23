@@ -21,12 +21,16 @@ public class CommandManager {
             GetLobbyCommand getLobbyCommand,
             HelloCommand helloCommand,
             LoginCommand loginCommand,
-            RegisterCommand registerCommand
+            RegisterCommand registerCommand,
+            CreateLobbyCommand createLobbyCommand,
+            UpdateLobbiesCommand updateLobbiesCommand
     ){
         commandsMap.put("hello", helloCommand);
         commandsMap.put("echo", echoCommand);
         commandsMap.put("login", loginCommand);
         commandsMap.put("register", registerCommand);
         commandsMap.put("getLobby", getLobbyCommand);
+        commandsMap.put("createLobby", createLobbyCommand);
+        commandsMap.put("updateLobbies", updateLobbiesCommand);
     }
 }

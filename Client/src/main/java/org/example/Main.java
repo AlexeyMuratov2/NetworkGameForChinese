@@ -9,7 +9,6 @@ import org.example.model.ClientConnectionHandler;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.concurrent.ExecutorService;

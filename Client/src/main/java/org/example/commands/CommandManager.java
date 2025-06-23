@@ -15,12 +15,14 @@ public class CommandManager {
             HelloCommand helloCommand,
             EchoCommand echoCommand,
             LoginCommand loginCommand,
-            RegisterCommand registerCommand
+            RegisterCommand registerCommand,
+            UpdateLobbiesListCommand updateLobbiesListCommand
     ) {
         commandMap.put("hello", helloCommand);
         commandMap.put("echo", echoCommand);
         commandMap.put("login", loginCommand);
         commandMap.put("register", registerCommand);
+        commandMap.put("updateLobbiesList", updateLobbiesListCommand);
     }
     public Command getCommand(String commandName) {
         return commandMap.get(commandName);

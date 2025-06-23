@@ -20,7 +20,6 @@ public class GetLobbyCommand implements Command{
 
     @Override
     public String execute(String args) {
-        logger.info(sessionManager.sisi);
         logger.info(args);
         return "";
     }

@@ -4,24 +4,30 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
-@Component
 public class GameSession {
-    @Getter
-    private List<ClientHandler> clientsInSession = new ArrayList<>();
-    @Setter
-    @Getter
-    private String name;
+    private final Set<String> players = ConcurrentHashMap.newKeySet();
 
-    public void addClientsInSession(ClientHandler clientHandler) {
-        this.clientsInSession.add(clientHandler);
+    public void addPlayer(String username) {
+        players.add(username);
     }
 
-    public void removeClientFromSession(ClientHandler clientHandler){
-        this.clientsInSession.remove(clientHandler);
+    public void removePlayer(String username) {
+        players.remove(username);
+    }
+
+    public boolean isEmpty() {
+        return players.isEmpty();
+    }
+
+    public Set<String> getPlayers() {
+        return Collections.unmodifiableSet(players);
+    }
+
+    public String getDisplayName() {
+        return String.join(",", players);
     }
 }

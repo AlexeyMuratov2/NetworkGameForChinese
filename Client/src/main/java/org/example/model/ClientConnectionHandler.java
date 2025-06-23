@@ -3,6 +3,7 @@ package org.example.model;
 import org.example.commands.Command;
 import org.example.commands.CommandManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.io.DataInputStream;
@@ -23,9 +24,12 @@ public class ClientConnectionHandler implements Runnable {
     private DataInputStream inputStream;
     private volatile boolean running = true;
     private final BlockingQueue<String> outboundMessages = new LinkedBlockingQueue<>();
+    private CommandManager commandManager;
 
     @Autowired
-    private CommandManager commandManager;
+    public ClientConnectionHandler(@Lazy CommandManager commandManager){
+        this.commandManager = commandManager;
+    }
 
     @Override
     public void run() {

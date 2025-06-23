@@ -2,7 +2,6 @@ package org.example.controllers;
 
 import org.example.model.ClientConnectionHandler;
 import org.example.model.HashUtils;
-import org.example.view.LoginPanel;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
 import org.example.view.RegisterPanel;

@@ -1,5 +1,7 @@
 package org.example.network;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.commands.Command;
 import org.example.commands.CommandManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,26 @@ public class ClientHandler implements Runnable{
     private final DataOutputStream dataOutputStream;
     private final DataInputStream dataInputStream;
     private final Socket socket;
-    private String USERNAME;
+    @Getter
+    private Integer PORT;
     private volatile boolean running = true;
     private CommandManager commandManager;
+    private ClientManager clientManager = ClientManager.getInstance();
 
     public ClientHandler(Socket socket, CommandManager commandManager) throws IOException {
         this.commandManager = commandManager;
         this.socket = socket;
         dataOutputStream = new DataOutputStream(socket.getOutputStream());
         dataInputStream = new DataInputStream(socket.getInputStream());
+        this.PORT = socket.getPort();
+        initializeInClientManager();
+    }
+
+    private void initializeInClientManager(){
+        clientManager.addClient(PORT, this);
+    }
+    private void deleteFromClientManager(){
+        clientManager.removeClient(PORT);
     }
 
     @Override
@@ -48,6 +61,7 @@ public class ClientHandler implements Runnable{
                 dataOutputStream.close();
                 dataInputStream.close();
                 logger.info("Client disconnected");
+                deleteFromClientManager();
             } catch (IOException e) {
                 logger.severe(e.getMessage());
             }
@@ -85,6 +99,7 @@ public class ClientHandler implements Runnable{
             socket.close();
             dataOutputStream.close();
             dataInputStream.close();
+            deleteFromClientManager();
         } catch (IOException e) {
             logger.severe(e.getMessage());
         }

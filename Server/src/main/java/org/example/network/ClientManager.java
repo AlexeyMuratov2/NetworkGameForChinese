@@ -7,20 +7,34 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class ClientManager {
-    private final Map<String, ClientHandler> clients = new ConcurrentHashMap<>();
+    private final Map<Integer, ClientHandler> clients = new ConcurrentHashMap<>();
+    private static ClientManager instance;
 
-    public void addClient(String username, ClientHandler clientHandler) {
-        clients.put(username, clientHandler);
+    private ClientManager(){}
+
+    public static ClientManager getInstance(){
+        if(instance == null){
+            synchronized (ClientManager.class){
+                if(instance == null){
+                    instance = new ClientManager();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public void addClient(Integer port, ClientHandler clientHandler) {
+        clients.put(port, clientHandler);
     }
     public ClientHandler getClient(Integer port) {
         return clients.get(port);
     }
-    public void removeClient(String username) {
-        clients.remove(username);
+    public void removeClient(Integer port) {
+        clients.remove(port);
     }
 
     public void removeClient(ClientHandler clientHandler) {
-        for (Map.Entry<String, ClientHandler> entry : clients.entrySet()) {
+        for (Map.Entry<Integer, ClientHandler> entry : clients.entrySet()) {
             if (entry.getValue() == clientHandler) {
                 clients.remove(entry.getKey());
                 break;

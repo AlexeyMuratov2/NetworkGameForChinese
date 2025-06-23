@@ -1,6 +1,7 @@
 package org.example.commands;
 
-import org.example.controllers.ClientContext;
+import org.example.controllers.LobbyPanelController;
+import org.example.model.ClientContext;
 import org.example.view.LoginPanel;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
@@ -15,23 +16,31 @@ public class LoginCommand implements Command{
     private final ClientContext clientContext;
     private final MainFrame mainFrame;
     private final LoginPanel loginPanel;
+    private final LobbyPanelController lobbyPanelController;
 
     @Autowired
-    public LoginCommand(ClientContext clientContext, MainFrame mainFrame, LoginPanel loginPanel) {
+    public LoginCommand(ClientContext clientContext,
+                        MainFrame mainFrame,
+                        LoginPanel loginPanel,
+                        LobbyPanelController lobbyPanelController) {
         this.clientContext = clientContext;
         this.mainFrame = mainFrame;
         this.loginPanel = loginPanel;
+        this.lobbyPanelController = lobbyPanelController;
     }
 
 
     @Override
     public void execute(String args){
+        logger.info("Executing login command with args: " + args);
         String[] parts = args.split(" ");
         String result = parts[0];
         String username = parts[1];
         if (result.equals("success")){
             clientContext.setUsername(username);
+            logger.info("set username to " + username);
             mainFrame.switchTo(Panels.LOBBIES);
+            lobbyPanelController.updateLobbies();
             logger.info("successfully login");
         }else{
             loginPanel.showLoginFailedMessage();

@@ -2,7 +2,7 @@ package org.example.view;
 
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
-import org.example.controllers.ClientContext;
+import org.example.model.ClientContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.imageio.ImageIO;
@@ -22,7 +22,12 @@ public class LobbiesPanel extends JPanel {
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     @Getter
     private JList<String> lobbyList;
+    @Getter
     private final JButton usernameButton;
+    @Getter
+    private final JButton refreshButton = new JButton("🔄 Refresh");
+    @Getter
+    private final JButton createLobbyButton = new JButton("➕ Create Lobby");
     private BufferedImage backgroundImage;
     private int hoverIndex = -1;
 
@@ -39,7 +44,6 @@ public class LobbiesPanel extends JPanel {
             System.err.println("Failed to load background: " + e.getMessage());
         }
 
-        // ======= Перенесём этот блок в initPanel() =======
         usernameButton = new JButton(); // инициализируем пусто, потом зададим текст
         setupUI();
     }
@@ -59,6 +63,47 @@ public class LobbiesPanel extends JPanel {
         usernameButton.setForeground(Color.WHITE);
         usernameButton.setFocusPainted(false);
 
+        refreshButton.setFont(new Font("SansSerif", Font.PLAIN, 16)); // === NEW ===
+        createLobbyButton.setFont(new Font("SansSerif", Font.PLAIN, 16)); // === NEW ===
+
+        Color mainRed = new Color(178, 34, 34);
+        Color mainBlue = new Color(30, 144, 255);
+        Font buttonFont = new Font("SansSerif", Font.BOLD, 20);
+
+        refreshButton.setFont(buttonFont);
+        refreshButton.setBackground(mainRed);
+        refreshButton.setForeground(Color.WHITE);
+        refreshButton.setFocusPainted(false);
+        refreshButton.setPreferredSize(new Dimension(180, 50));
+
+        createLobbyButton.setFont(buttonFont);
+        createLobbyButton.setBackground(mainBlue);
+        createLobbyButton.setForeground(Color.WHITE);
+        createLobbyButton.setFocusPainted(false);
+        createLobbyButton.setPreferredSize(new Dimension(180, 50));
+
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 40, 20));
+        bottomPanel.setOpaque(false);
+
+
+        refreshButton.setFont(buttonFont);
+        refreshButton.setBackground(mainRed);
+        refreshButton.setForeground(Color.WHITE);
+        refreshButton.setFocusPainted(false);
+        refreshButton.setPreferredSize(new Dimension(200, 60));
+
+        createLobbyButton.setFont(buttonFont);
+        createLobbyButton.setBackground(mainBlue);
+        createLobbyButton.setForeground(Color.WHITE);
+        createLobbyButton.setFocusPainted(false);
+        createLobbyButton.setPreferredSize(new Dimension(200, 60));
+
+        bottomPanel.add(refreshButton);
+        bottomPanel.add(createLobbyButton);
+
+        add(bottomPanel, BorderLayout.SOUTH);
+
+        // Правая панель с кнопкой пользователя
         JPanel buttonWrapper = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         buttonWrapper.setOpaque(false);
         buttonWrapper.add(usernameButton);
@@ -66,6 +111,7 @@ public class LobbiesPanel extends JPanel {
 
         add(topPanel, BorderLayout.NORTH);
 
+        // ===== Лист лобби =====
         listModel.addElement("🏯 Lobby 1 - Beginner");
         listModel.addElement("🐉 Lobby 2 - Intermediate");
         listModel.addElement("🧧 Lobby 3 - Advanced");
@@ -142,14 +188,28 @@ public class LobbiesPanel extends JPanel {
         usernameButton.setText("👤 " + username);
     }
 
+    public void setLobbyList(String lobbiesName){
+        listModel.removeAllElements();
+        for (String lobbyName : lobbiesName.split(" ")) {
+            listModel.addElement(lobbyName);
+        }
+        refreshLobbyListView();
+    }
+
     public void addLobby(String lobbyName) {
         if (!listModel.contains(lobbyName)) {
             listModel.addElement(lobbyName);
         }
+        refreshLobbyListView();
     }
 
     public void removeLobby(String lobbyName) {
         listModel.removeElement(lobbyName);
+        refreshLobbyListView();
+    }
+
+    public void refreshLobbyListView() {
+        repaint();
     }
 
     @Override
@@ -162,5 +222,4 @@ public class LobbiesPanel extends JPanel {
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     }
-
 }
