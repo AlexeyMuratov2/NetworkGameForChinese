@@ -25,10 +25,13 @@ public class ClientConnectionHandler implements Runnable {
     private volatile boolean running = true;
     private final BlockingQueue<String> outboundMessages = new LinkedBlockingQueue<>();
     private CommandManager commandManager;
+    private ClientContext clientContext;
 
     @Autowired
-    public ClientConnectionHandler(@Lazy CommandManager commandManager){
+    @Lazy
+    public ClientConnectionHandler(CommandManager commandManager, ClientContext clientContext) {
         this.commandManager = commandManager;
+        this.clientContext = clientContext;
     }
 
     @Override
@@ -38,6 +41,7 @@ public class ClientConnectionHandler implements Runnable {
              DataInputStream in = new DataInputStream(socket.getInputStream())) {
             this.outputStream = out;
             this.inputStream = in;
+            clientContext.setPort(socket.getLocalPort());
             logger.info("Connected to server");
 
             Thread readerThread = new Thread(this::readMessages, "Client-Reader");

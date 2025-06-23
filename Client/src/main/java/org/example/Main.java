@@ -5,6 +5,7 @@ import org.example.controllers.LobbyPanelController;
 import org.example.controllers.LoginPanelController;
 import org.example.controllers.RegisterPanelController;
 import org.example.model.AppConfig;
+import org.example.model.ApplicationContextHolder;
 import org.example.model.ClientConnectionHandler;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
@@ -20,6 +21,8 @@ public class Main {
 
     public static void main(String[] args){
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+        new ApplicationContextHolder().setApplicationContext(context);
 
         ExecutorService singleThreadedExecutor = Executors.newSingleThreadExecutor();
         ClientConnectionHandler client = context.getBean(ClientConnectionHandler.class);

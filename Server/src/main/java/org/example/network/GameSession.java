@@ -23,6 +23,10 @@ public class GameSession {
         return players.isEmpty();
     }
 
+    public boolean containsPlayer(String username){
+        return players.contains(username);
+    }
+
     public Set<String> getPlayers() {
         return Collections.unmodifiableSet(players);
     }

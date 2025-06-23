@@ -8,20 +8,9 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class ClientManager {
     private final Map<Integer, ClientHandler> clients = new ConcurrentHashMap<>();
-    private static ClientManager instance;
 
     private ClientManager(){}
 
-    public static ClientManager getInstance(){
-        if(instance == null){
-            synchronized (ClientManager.class){
-                if(instance == null){
-                    instance = new ClientManager();
-                }
-            }
-        }
-        return instance;
-    }
 
     public void addClient(Integer port, ClientHandler clientHandler) {
         clients.put(port, clientHandler);

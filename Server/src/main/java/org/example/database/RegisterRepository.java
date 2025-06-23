@@ -18,14 +18,24 @@ public class RegisterRepository {
     }
 
     public boolean register(String username, String hashPass) {
-        String sql = "INSERT INTO users(username, passwd) VALUES (?, ?)";
+        String checkSql = "SELECT COUNT(*) FROM users WHERE username = ?";
+        String insertSql = "INSERT INTO users(username, passwd) VALUES (?, ?)";
+
         try {
-            int rowsAffected = template.update(sql, username, hashPass);
-            logger.info("new account successfully created");
+            Integer count = template.queryForObject(checkSql, Integer.class, username);
+            if (count != null && count > 0) {
+                logger.info("username already exists: " + username);
+                return false;
+            }
+
+            int rowsAffected = template.update(insertSql, username, hashPass);
+            logger.info("new account successfully created for: " + username);
             return rowsAffected > 0;
+
         } catch (DataAccessException e) {
-            logger.severe("error in db while creating new account");
+            logger.severe("error in db while creating new account for: " + username);
             return false;
         }
     }
+
 }

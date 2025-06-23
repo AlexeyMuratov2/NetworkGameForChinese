@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import org.example.model.ClientConnectionHandler;
+import org.example.model.ClientContext;
 import org.example.model.HashUtils;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
@@ -13,16 +14,18 @@ public class RegisterPanelController {
     private final MainFrame mainFrame;
     private final RegisterPanel registerPanel;
     private final ClientConnectionHandler clientConnectionHandler;
+    private final ClientContext clientContext;
 
     private String username;
     private String passwd;
     private String passwdConfirm;
 
     @Autowired
-    public RegisterPanelController(MainFrame mainFrame, RegisterPanel registerPanel, ClientConnectionHandler clientConnectionHandler){
+    public RegisterPanelController(MainFrame mainFrame, RegisterPanel registerPanel, ClientConnectionHandler clientConnectionHandler, ClientContext clientContext){
         this.mainFrame = mainFrame;
         this.registerPanel = registerPanel;
         this.clientConnectionHandler = clientConnectionHandler;
+        this.clientContext = clientContext;
 
         registerPanel.getRegisterButton().addActionListener(e -> onRegisterClick());
         registerPanel.getSwitchToLoginButton().addActionListener(e -> onReturnButtonClick());
@@ -35,7 +38,7 @@ public class RegisterPanelController {
 
         if (passwd.equals(passwdConfirm)){
             String hashPass = HashUtils.sha256(passwd);
-            clientConnectionHandler.sendMessage("register " + username + " " + hashPass);
+            clientConnectionHandler.sendMessage("register " + username + " " + hashPass + " " + clientContext.getPort());
         }else {
             registerPanel.showPasswordMismatchMessage();
         }

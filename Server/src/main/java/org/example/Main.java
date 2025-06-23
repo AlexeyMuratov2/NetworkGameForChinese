@@ -4,6 +4,7 @@ package org.example;
 import org.example.commands.CommandManager;
 import org.example.database.AppConfig;
 import org.example.database.DatabaseSetupRepository;
+import org.example.model.ApplicationContextHolder;
 import org.example.network.ServerMain;
 import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,6 +15,7 @@ import java.util.concurrent.Executors;
 public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+        new ApplicationContextHolder().setApplicationContext(context);
 
         context.getBean(DatabaseSetupRepository.class);
         context.getBean(CommandManager.class);

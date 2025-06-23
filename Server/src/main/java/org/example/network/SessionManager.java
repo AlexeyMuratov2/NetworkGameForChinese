@@ -27,6 +27,15 @@ public class SessionManager {
         sessions.entrySet().removeIf(e -> e.getValue().isEmpty());
     }
 
+    public void removeFromSessionByUsername(String username){
+        for (GameSession session : sessions.values()){
+            if (session.containsPlayer(username)){
+                session.removePlayer(username);
+            }
+        }
+        removeEmptySessions();
+    }
+
     public Collection<GameSession> getAllSessions() {
         return sessions.values();
     }

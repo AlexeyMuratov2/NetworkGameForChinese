@@ -23,6 +23,8 @@ public class LoginCommand implements Command{
         String[] parts = args.split(" ");
         String username = parts[0];
         String hashPass = parts[1];
+        String port = parts[2];
+        clientManager.getClient(Integer.parseInt(port)).setUsername(username);
         boolean isLogin = loginRepository.isLoginSuccess(username, hashPass);
         return isLogin ? "login success " + username : "login failed " + username;
     }
