@@ -14,7 +14,10 @@ public class MainFrame extends JFrame {
     private final JPanel panelContainer = new JPanel(cardLayout);
 
     @Autowired
-    private MainFrame(JPanel loginPanel, JPanel registerPanel, JPanel lobbiesPanel){
+    private MainFrame(LoginPanel loginPanel,
+                      RegisterPanel registerPanel,
+                      LobbiesPanel lobbiesPanel,
+                      GameLobbyPanel GameLobbyPanel){
 
         setTitle("Game view");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -24,6 +27,7 @@ public class MainFrame extends JFrame {
         panelContainer.add(loginPanel, String.valueOf(Panels.LOGIN));
         panelContainer.add(registerPanel, String.valueOf(Panels.REGISTER));
         panelContainer.add(lobbiesPanel, String.valueOf(Panels.LOBBIES));
+        panelContainer.add(GameLobbyPanel, String.valueOf(Panels.GAME_LOBBY));
 
         setContentPane(panelContainer);
         setVisible(true);

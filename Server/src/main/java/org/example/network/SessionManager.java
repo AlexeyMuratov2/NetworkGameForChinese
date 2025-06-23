@@ -51,5 +51,14 @@ public class SessionManager {
         logger.info("updateLobbiesList " + sessionNames);
         return "updateLobbiesList " + sessionNames;
     }
+
+    public GameSession getSessionByName(String username){
+        for(GameSession session : sessions.values()){
+            if(session.containsPlayer(username)){
+                return session;
+            }
+        }
+        throw new NullPointerException("There are no such game session");
+    }
 }
 
