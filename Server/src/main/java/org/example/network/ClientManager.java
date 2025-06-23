@@ -18,6 +18,14 @@ public class ClientManager {
     public ClientHandler getClient(Integer port) {
         return clients.get(port);
     }
+
+    public ClientHandler getClientHandlerByName(String username){
+        return clients.values().stream()
+                .filter(handler -> username.equals(handler.getUsername()))
+                .findFirst()
+                .orElse(null);
+    }
+
     public void removeClient(Integer port) {
         clients.remove(port);
     }

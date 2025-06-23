@@ -17,7 +17,8 @@ public class CommandManager {
             LoginCommand loginCommand,
             RegisterCommand registerCommand,
             UpdateLobbiesListCommand updateLobbiesListCommand,
-            LobbyJoinedCommand lobbyJoinedCommand
+            LobbyJoinedCommand lobbyJoinedCommand,
+            UpdateLobbyInfoCommand updateLobbyInfoCommand
     ) {
         commandMap.put("hello", helloCommand);
         commandMap.put("echo", echoCommand);
@@ -25,6 +26,7 @@ public class CommandManager {
         commandMap.put("register", registerCommand);
         commandMap.put("updateLobbiesList", updateLobbiesListCommand);
         commandMap.put("lobbyJoined", lobbyJoinedCommand);
+        commandMap.put("updateLobbyInfo", updateLobbyInfoCommand);
     }
     public Command getCommand(String commandName) {
         return commandMap.get(commandName);

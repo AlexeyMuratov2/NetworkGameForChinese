@@ -2,6 +2,7 @@ package org.example.network;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.model.ApplicationContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -33,5 +34,13 @@ public class GameSession {
 
     public String getDisplayName() {
         return String.join(",", players);
+    }
+
+    public void updateLobbyInfoForAllUsers(){
+        ClientManager clientManager = ApplicationContextHolder.getBean(ClientManager.class);
+        String msg = "updateLobbyInfo " + this.getDisplayName();
+        for (String username : players){
+            clientManager.getClientHandlerByName(username).sendMessage(msg);
+        }
     }
 }
