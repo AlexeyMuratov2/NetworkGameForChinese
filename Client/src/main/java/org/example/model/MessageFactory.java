@@ -20,4 +20,8 @@ public class MessageFactory {
     public static String createLobby(String username) {
         return "createLobby " + username;
     }
+
+    public static String setReady(String username, boolean isReady) {
+        return "setReady " + username + " " + isReady;
+    }
 }

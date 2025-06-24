@@ -19,8 +19,18 @@ public class MessageFactory {
         return (success ? "register success " : "register failed ") + username;
     }
 
-    public static String lobbyJoined(boolean success, String sessionDisplayName) {
-        return (success ? "lobbyJoined success " : "lobbyJoined failed ") + sessionDisplayName;
+    public static String lobbyJoined(boolean success, List<ClientHandler> usersInLobby) {
+        StringBuilder msg = new StringBuilder("lobbyJoined ");
+        msg.append(success);
+        msg.append("(");
+        for (ClientHandler client : usersInLobby){
+            msg.append(client.getUsername());
+            msg.append(",");
+            msg.append(client.isReady());
+            msg.append(",");
+        }
+        msg.append(")");
+        return msg.toString();
     }
 
     public static String startGame(String gameName) {
@@ -41,6 +51,10 @@ public class MessageFactory {
 
     public static String updateLobbiesList(String sessionNames) {
         return "updateLobbiesList " + sessionNames;
+    }
+
+    public static String ignoreMessage(){
+        return "ignore this message";
     }
 }
 

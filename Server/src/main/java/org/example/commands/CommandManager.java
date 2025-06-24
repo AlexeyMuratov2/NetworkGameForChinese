@@ -24,7 +24,8 @@ public class CommandManager {
             RegisterCommand registerCommand,
             CreateLobbyCommand createLobbyCommand,
             UpdateLobbiesCommand updateLobbiesCommand,
-            JoinLobbyCommand joinLobbyCommand
+            JoinLobbyCommand joinLobbyCommand,
+            SetReadyCommand setReadyCommand
     ){
         commandsMap.put("hello", helloCommand);
         commandsMap.put("echo", echoCommand);
@@ -34,5 +35,6 @@ public class CommandManager {
         commandsMap.put("createLobby", createLobbyCommand);
         commandsMap.put("updateLobbies", updateLobbiesCommand);
         commandsMap.put("joinLobby", joinLobbyCommand);
+        commandsMap.put("setReady", setReadyCommand);
     }
 }

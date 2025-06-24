@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.example.commands.Command;
 import org.example.commands.CommandManager;
 import org.example.model.ApplicationContextHolder;
+import org.example.model.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -76,9 +77,11 @@ public class ClientHandler implements Runnable{
 
     public synchronized void sendMessage(String message) {
         try {
-            dataOutputStream.writeUTF(message);
-            dataOutputStream.flush();
-            logger.info("Message sent: " + message);
+            if (!message.equals(MessageFactory.ignoreMessage())) {
+                dataOutputStream.writeUTF(message);
+                dataOutputStream.flush();
+                logger.info("Message sent: " + message);
+            }
         } catch (IOException e) {
             logger.severe("Error sending message: " + e.getMessage());
         }

@@ -24,6 +24,6 @@ public class JoinLobbyCommand implements Command{
         GameSession session = sessionManager.getSessionByName(firstUserInLobby);
         session.addPlayer(username);
         session.updateLobbyInfoForAllUsers();
-        return MessageFactory.lobbyJoined(true, session.getDisplayName());
+        return MessageFactory.lobbyJoined(true, session.getClientHandlersInSession());
     }
 }

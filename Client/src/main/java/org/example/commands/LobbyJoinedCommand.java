@@ -26,17 +26,27 @@ public class LobbyJoinedCommand implements Command{
 
     @Override
     public void execute(String args) {
-        String[] parts = args.split(" ");
-        String result = parts[0];
-        String[] players = parts[1].split(",");
-        if (result.equals("success")) {
-            mainFrame.switchTo(Panels.GAME_LOBBY);
-            for (int i = 0; i < players.length; i++) {
-                gameLobbyPanel.updatePlayerSlot(i, players[i], false);
-                logger.info("set player " + i + " to " + players[i]);
-            }
+        // args: "true(username1,false,username2,true,)"
+        int bracketStart = args.indexOf('(');
+        if (bracketStart == -1 || !args.endsWith(")")) {
+            logger.warning("Malformed lobbyJoined message: " + args);
+            return;
         }
-        else {
+
+        String result = args.substring(0, bracketStart).trim();  // "true" или "false"
+        String playersRaw = args.substring(bracketStart + 1, args.length() - 1);  // без скобок
+
+        if (result.equals("true")) {
+            mainFrame.switchTo(Panels.GAME_LOBBY);
+            String[] tokens = playersRaw.split(",");
+
+            for (int i = 0; i < tokens.length - 1; i += 2) {
+                String username = tokens[i];
+                boolean isReady = Boolean.parseBoolean(tokens[i + 1]);
+                gameLobbyPanel.updatePlayerSlot(i / 2, username, isReady);
+                logger.info("set player " + (i / 2) + " to " + username + ", ready: " + isReady);
+            }
+        } else {
             logger.info("lobby joined failed, try again");
         }
     }
