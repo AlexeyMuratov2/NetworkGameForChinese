@@ -53,6 +53,7 @@ public class SessionManager {
     }
 
     public GameSession getSessionByName(String username){
+        logger.info("looking for user " + username +" in lobby");
         for(GameSession session : sessions.values()){
             if(session.containsPlayer(username)){
                 return session;

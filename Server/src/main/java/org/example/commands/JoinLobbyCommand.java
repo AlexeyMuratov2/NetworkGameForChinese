@@ -20,7 +20,8 @@ public class JoinLobbyCommand implements Command{
         String[] parts = args.split(" ");
         String username = parts[0];
         String sessionName = parts[1];
-        GameSession session = sessionManager.getSessionByName(sessionName);
+        String firstUserInLobby = sessionName.split(",")[0];
+        GameSession session = sessionManager.getSessionByName(firstUserInLobby);
         session.addPlayer(username);
         session.updateLobbyInfoForAllUsers();
         return MessageFactory.lobbyJoined(true, session.getDisplayName());

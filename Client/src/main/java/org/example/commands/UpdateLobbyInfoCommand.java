@@ -26,6 +26,7 @@ public class UpdateLobbyInfoCommand implements Command {
     @Override
     public void execute(String args) {
         String[] parts = args.split(",");
+        gameLobbyPanel.clearAllSlots();
         for (int i = 0; i < parts.length; i++) {
             gameLobbyPanel.updatePlayerSlot(i, parts[i]);
             logger.info("set player " + i + " to " + parts[i]);
