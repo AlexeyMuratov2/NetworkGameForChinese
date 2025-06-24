@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import org.example.model.ClientConnectionHandler;
 import org.example.model.ClientContext;
+import org.example.model.MessageFactory;
 import org.example.view.GameLobbyPanel;
 import org.example.view.LobbiesPanel;
 import org.example.view.MainFrame;
@@ -38,7 +39,7 @@ public class LobbyPanelController {
                 if (!e.getValueIsAdjusting()){
                     String name = lobbiesPanel.getLobbyList().getSelectedValue();
                     if (name != null){
-                        String msg = "joinLobby " + clientContext.getUsername() + " " + name;
+                        String msg = MessageFactory.joinLobby(clientContext.getUsername(), name);
                         clientConnectionHandler.sendMessage(msg);
                     }
                 }
@@ -50,12 +51,12 @@ public class LobbyPanelController {
     }
 
     public void updateLobbies() {
-        String msg = "updateLobbies " + clientContext.getUsername();
+        String msg = MessageFactory.updateLobbies(clientContext.getUsername());
         clientConnectionHandler.sendMessage(msg);
     }
 
     public void createLobby() {
-        String msg = "createLobby " + clientContext.getUsername();
+        String msg = MessageFactory.createLobby(clientContext.getUsername());
         clientConnectionHandler.sendMessage(msg);
     }
 }

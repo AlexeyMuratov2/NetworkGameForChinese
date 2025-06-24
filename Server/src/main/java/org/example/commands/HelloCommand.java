@@ -1,11 +1,12 @@
 package org.example.commands;
 
+import org.example.model.MessageFactory;
 import org.springframework.stereotype.Component;
 
 @Component
 public class HelloCommand implements Command {
     @Override
     public String execute(String args) {
-        return "Hello, client!";
+        return MessageFactory.echo(args);
     }
 }

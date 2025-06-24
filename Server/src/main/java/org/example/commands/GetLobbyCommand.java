@@ -21,6 +21,6 @@ public class GetLobbyCommand implements Command{
     @Override
     public String execute(String args) {
         logger.info(args);
-        return "";
+        return "я забыл что делает эта хуйня";
     }
 }

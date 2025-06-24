@@ -17,6 +17,7 @@ public class DatabaseSetupRepository {
         logger.info("setting up all tables");
 
         setUpLoginTable();
+        setUpGuessWordTable();
     }
 
     private void setUpLoginTable(){
@@ -25,6 +26,22 @@ public class DatabaseSetupRepository {
                 "  `username` VARCHAR(45) NOT NULL,\n" +
                 "  `passwd` VARCHAR(100) NOT NULL,\n" +
                 "  PRIMARY KEY (`id`));");
+    }
+
+    private void setUpGuessWordTable(){
+        template.update("CREATE TABLE IF NOT EXISTS guess_word_t (\n" +
+                "    id INT PRIMARY KEY AUTO_INCREMENT,\n" +
+                "    chinese_word VARCHAR(50) UNIQUE NOT NULL,\n" +
+                "    english_translation VARCHAR(100) NOT NULL\n" +
+                ");");
+
+        template.update("INSERT IGNORE INTO guess_word_t (chinese_word, english_translation) VALUES\n" +
+                "('你好', 'Hello'),\n" +
+                "('谢谢', 'Thank you'),\n" +
+                "('再见', 'Goodbye'),\n" +
+                "('是', 'Yes'),\n" +
+                "('不是', 'No'),\n" +
+                "('中国', 'China');");
     }
 
 }

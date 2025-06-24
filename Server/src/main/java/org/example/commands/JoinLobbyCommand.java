@@ -1,5 +1,6 @@
 package org.example.commands;
 
+import org.example.model.MessageFactory;
 import org.example.network.GameSession;
 import org.example.network.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,6 @@ public class JoinLobbyCommand implements Command{
         GameSession session = sessionManager.getSessionByName(sessionName);
         session.addPlayer(username);
         session.updateLobbyInfoForAllUsers();
-        return "lobbyJoined success " + session.getDisplayName();
+        return MessageFactory.lobbyJoined(true, session.getDisplayName());
     }
 }

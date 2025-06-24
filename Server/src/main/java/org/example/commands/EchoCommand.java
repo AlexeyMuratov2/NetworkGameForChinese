@@ -1,11 +1,12 @@
 package org.example.commands;
 
+import org.example.model.MessageFactory;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EchoCommand implements Command{
+public class EchoCommand implements Command {
     @Override
     public String execute(String args) {
-        return "Echo: " + args;
+        return MessageFactory.echo(args);
     }
 }

@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.model.ClientConnectionHandler;
 import org.example.model.ClientContext;
 import org.example.model.HashUtils;
+import org.example.model.MessageFactory;
 import org.example.view.LoginPanel;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
@@ -33,7 +34,8 @@ public class LoginPanelController {
     private void onLoginClick(){
         this.username = loginPanel.getLoginField().getText();
         this.password = HashUtils.sha256(new String(loginPanel.getPassField().getPassword()));
-        clientConnectionHandler.sendMessage("login " + username + " " + password + " " + clientContext.getPort());
+        String msg = MessageFactory.login(username, password, clientContext.getPort());
+        clientConnectionHandler.sendMessage(msg);
     }
 
     private void onRegisterClick(){

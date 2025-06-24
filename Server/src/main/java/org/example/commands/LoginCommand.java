@@ -1,6 +1,7 @@
 package org.example.commands;
 
 import org.example.database.LoginRepository;
+import org.example.model.MessageFactory;
 import org.example.network.ClientManager;
 import org.example.network.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,6 @@ public class LoginCommand implements Command{
         String port = parts[2];
         clientManager.getClient(Integer.parseInt(port)).setUsername(username);
         boolean isLogin = loginRepository.isLoginSuccess(username, hashPass);
-        return isLogin ? "login success " + username : "login failed " + username;
+        return MessageFactory.login(isLogin, username);
     }
 }

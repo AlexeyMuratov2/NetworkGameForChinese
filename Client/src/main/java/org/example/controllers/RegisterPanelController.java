@@ -3,6 +3,7 @@ package org.example.controllers;
 import org.example.model.ClientConnectionHandler;
 import org.example.model.ClientContext;
 import org.example.model.HashUtils;
+import org.example.model.MessageFactory;
 import org.example.view.MainFrame;
 import org.example.view.Panels;
 import org.example.view.RegisterPanel;
@@ -38,7 +39,8 @@ public class RegisterPanelController {
 
         if (passwd.equals(passwdConfirm)){
             String hashPass = HashUtils.sha256(passwd);
-            clientConnectionHandler.sendMessage("register " + username + " " + hashPass + " " + clientContext.getPort());
+            String msg = MessageFactory.register(username, hashPass, clientContext.getPort());
+            clientConnectionHandler.sendMessage(msg);
         }else {
             registerPanel.showPasswordMismatchMessage();
         }

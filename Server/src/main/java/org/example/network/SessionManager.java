@@ -46,10 +46,10 @@ public class SessionManager {
                 .collect(Collectors.toList());
     }
 
-    public String getUpdateLobbiesCommand() {
+    public String getAllSessionName() {
         String sessionNames = String.join(" ", this.getSessionDisplayNames());
         logger.info("updateLobbiesList " + sessionNames);
-        return "updateLobbiesList " + sessionNames;
+        return sessionNames;
     }
 
     public GameSession getSessionByName(String username){

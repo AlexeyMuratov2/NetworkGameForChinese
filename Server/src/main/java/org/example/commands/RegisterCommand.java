@@ -1,6 +1,7 @@
 package org.example.commands;
 
 import org.example.database.RegisterRepository;
+import org.example.model.MessageFactory;
 import org.example.network.ClientManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,10 +24,7 @@ public class RegisterCommand implements Command{
         String passwdHash = parts[1];
         String port = parts[2];
         clientManager.getClient(Integer.parseInt(port)).setUsername(username);
-        if (registerRepository.register(username, passwdHash)) {
-            return "register success " + username;
-        }else{
-            return "register failed " + username;
-        }
+        boolean success = registerRepository.register(username, passwdHash);
+        return MessageFactory.register(success, username);
     }
 }

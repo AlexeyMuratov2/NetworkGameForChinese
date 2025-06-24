@@ -25,9 +25,13 @@ public class ClientHandler implements Runnable{
     private String username;
     @Getter
     private Integer PORT;
+    @Getter
+    @Setter
+    private boolean isReady = false;
     private volatile boolean running = true;
     private CommandManager commandManager;
     private ClientManager clientManager = ApplicationContextHolder.getBean(ClientManager.class);
+    private MainGameManager mainGameManager = ApplicationContextHolder.getBean(MainGameManager.class);
 
     public ClientHandler(Socket socket, CommandManager commandManager) throws IOException {
         this.commandManager = commandManager;
@@ -41,12 +45,7 @@ public class ClientHandler implements Runnable{
     private void initializeInClientManager(){
         clientManager.addClient(PORT, this);
     }
-    private void deleteFromClientManager(){
-        clientManager.removeClient(PORT);
-    }
-    private void deleteFromSession(){
-        ApplicationContextHolder.getBean(SessionManager.class).removeFromSessionByUsername(this.username);
-    }
+
 
     @Override
     public void run() {
@@ -68,8 +67,7 @@ public class ClientHandler implements Runnable{
                 dataOutputStream.close();
                 dataInputStream.close();
                 logger.info("Client disconnected");
-                deleteFromClientManager();
-                deleteFromSession();
+                mainGameManager.onClientDisconnect(this);
             } catch (IOException e) {
                 logger.severe(e.getMessage());
             }
@@ -107,8 +105,7 @@ public class ClientHandler implements Runnable{
             socket.close();
             dataOutputStream.close();
             dataInputStream.close();
-            deleteFromSession();
-            deleteFromClientManager();
+            mainGameManager.onClientDisconnect(this);
         } catch (IOException e) {
             logger.severe(e.getMessage());
         }
