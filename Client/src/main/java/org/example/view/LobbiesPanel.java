@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @org.springframework.stereotype.Component
-public class LobbiesPanel extends JPanel {
-
+public class LobbiesPanel extends JPanel implements Panel{
     private final ClientContext clientContext;
     private final DefaultListModel<String> listModel = new DefaultListModel<>();
     @Getter
@@ -221,5 +220,15 @@ public class LobbiesPanel extends JPanel {
             g.setColor(Color.LIGHT_GRAY);
             g.fillRect(0, 0, getWidth(), getHeight());
         }
+    }
+
+    @Override
+    public Component asComponent() {
+        return this;
+    }
+
+    @Override
+    public String getPanelName() {
+        return Panels.LOBBIES.toString();
     }
 }

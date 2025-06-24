@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @Component
 @Getter
-public class TranslationGamePanel extends JPanel {
+public class TranslationGamePanel extends JPanel implements Panel{
     private BufferedImage backgroundImage;
 
     private final JLabel questionLabel = new JLabel("汉字", SwingConstants.CENTER);
@@ -116,5 +116,15 @@ public class TranslationGamePanel extends JPanel {
             g.setColor(Color.LIGHT_GRAY);
             g.fillRect(0, 0, getWidth(), getHeight());
         }
+    }
+
+    @Override
+    public java.awt.Component asComponent() {
+        return this;
+    }
+
+    @Override
+    public String getPanelName() {
+        return Panels.TRANSLATION_GAME.toString();
     }
 }

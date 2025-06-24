@@ -1,9 +1,12 @@
 package org.example.commands;
 
+import org.example.commands.clientRegistrationCommands.LoginCommand;
+import org.example.commands.clientRegistrationCommands.RegisterCommand;
+import org.example.commands.lobbiesCommands.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -16,25 +19,9 @@ public class CommandManager {
     }
 
     @Autowired
-    public CommandManager(
-            EchoCommand echoCommand,
-            GetLobbyCommand getLobbyCommand,
-            HelloCommand helloCommand,
-            LoginCommand loginCommand,
-            RegisterCommand registerCommand,
-            CreateLobbyCommand createLobbyCommand,
-            UpdateLobbiesCommand updateLobbiesCommand,
-            JoinLobbyCommand joinLobbyCommand,
-            SetReadyCommand setReadyCommand
-    ){
-        commandsMap.put("hello", helloCommand);
-        commandsMap.put("echo", echoCommand);
-        commandsMap.put("login", loginCommand);
-        commandsMap.put("register", registerCommand);
-        commandsMap.put("getLobby", getLobbyCommand);
-        commandsMap.put("createLobby", createLobbyCommand);
-        commandsMap.put("updateLobbies", updateLobbiesCommand);
-        commandsMap.put("joinLobby", joinLobbyCommand);
-        commandsMap.put("setReady", setReadyCommand);
+    public CommandManager(List<Command> commands){
+        for(Command command : commands){
+            commandsMap.put(command.getCommandName(), command);
+        }
     }
 }

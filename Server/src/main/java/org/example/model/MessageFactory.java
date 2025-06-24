@@ -33,10 +33,6 @@ public class MessageFactory {
         return msg.toString();
     }
 
-    public static String startGame(String gameName) {
-        return "StartGame " + gameName;
-    }
-
     public static String updateLobbyInfo(List<ClientHandler> usersInLobby){
         StringBuilder msg = new StringBuilder("updateLobbyInfo (");
         for (ClientHandler client : usersInLobby){
@@ -55,6 +51,10 @@ public class MessageFactory {
 
     public static String ignoreMessage(){
         return "ignore this message";
+    }
+
+    public static String startGame(String gameName, String usernamesInLobby){
+        return "startGame "+ gameName + " " + usernamesInLobby;
     }
 }
 

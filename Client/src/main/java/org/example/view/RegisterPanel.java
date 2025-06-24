@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Getter
 @org.springframework.stereotype.Component
-public class RegisterPanel extends JPanel {
+public class RegisterPanel extends JPanel implements Panel{
     private final JLabel titleLabel = new JLabel("Create Your Account", SwingConstants.CENTER);
     private final JTextField usernameField = new JTextField(20);
     private final JPasswordField passwordField = new JPasswordField(20);
@@ -144,5 +144,15 @@ public class RegisterPanel extends JPanel {
             g2d.setPaint(gradient);
             g2d.fillRect(0, 0, getWidth(), getHeight());
         }
+    }
+
+    @Override
+    public Component asComponent() {
+        return this;
+    }
+
+    @Override
+    public String getPanelName() {
+        return Panels.REGISTER.toString();
     }
 }

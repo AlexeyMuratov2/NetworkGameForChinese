@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Getter
 @org.springframework.stereotype.Component
-public class LoginPanel extends JPanel {
+public class LoginPanel extends JPanel implements Panel{
     private final JLabel titleLabel = new JLabel("汉语冒险 | Chinese Quest", SwingConstants.CENTER);
     private final JButton loginButton = new JButton("🎮 PLay");
     private final JButton switchToRegisterButton = new JButton("📝 Register");
@@ -123,5 +123,15 @@ public class LoginPanel extends JPanel {
 
     public void hideLoginFailedMessage() {
         errorLabel.setVisible(false);
+    }
+
+    @Override
+    public Component asComponent() {
+        return this;
+    }
+
+    @Override
+    public String getPanelName() {
+        return Panels.LOGIN.toString();
     }
 }

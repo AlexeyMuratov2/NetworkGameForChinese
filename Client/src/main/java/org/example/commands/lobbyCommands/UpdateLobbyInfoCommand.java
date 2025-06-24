@@ -1,5 +1,6 @@
-package org.example.commands;
+package org.example.commands.lobbyCommands;
 
+import org.example.commands.Command;
 import org.example.model.ClientContext;
 import org.example.view.GameLobbyPanel;
 import org.example.view.MainFrame;
@@ -21,6 +22,11 @@ public class UpdateLobbyInfoCommand implements Command {
         this.clientContext = clientContext;
         this.gameLobbyPanel = gameLobbyPanel;
         this.mainFrame = mainFrame;
+    }
+
+    @Override
+    public String getName() {
+        return "updateLobbyInfo";
     }
 
     @Override

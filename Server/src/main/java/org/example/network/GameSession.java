@@ -60,8 +60,6 @@ public class GameSession {
     public void startRandomGame() {
         GameStrategy game = gameStrategyFactory.getRandomGame();
         game.start(this);
-        String msg = MessageFactory.startGame(game.getGameName());
-        this.sendMessageToSession(msg);
     }
 
     public void sendMessageToSession(String msg) {

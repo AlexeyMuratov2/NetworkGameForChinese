@@ -1,5 +1,6 @@
-package org.example.commands;
+package org.example.commands.registrationCommands;
 
+import org.example.commands.Command;
 import org.example.controllers.LobbyPanelController;
 import org.example.model.ClientContext;
 import org.example.view.MainFrame;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 @Component
-public class RegisterCommand implements Command{
+public class RegisterCommand implements Command {
     private static final Logger logger = Logger.getLogger(LoginCommand.class.getName());
     private final ClientContext clientContext;
     private final MainFrame mainFrame;
@@ -23,6 +24,11 @@ public class RegisterCommand implements Command{
         this.lobbyPanelController = lobbyPanelController;
     }
 
+
+    @Override
+    public String getName() {
+        return "register";
+    }
 
     @Override
     public void execute(String args) {

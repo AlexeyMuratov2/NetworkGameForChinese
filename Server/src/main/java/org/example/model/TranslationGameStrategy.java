@@ -5,13 +5,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TranslationGameStrategy implements GameStrategy{
+    private final String gameName = "TranslationGame";
     @Override
     public String getGameName() {
-        return "";
+        return gameName;
     }
 
     @Override
     public void start(GameSession session) {
-
+        session.sendMessageToSession(MessageFactory.startGame(gameName, session.getDisplayName()));
     }
 }

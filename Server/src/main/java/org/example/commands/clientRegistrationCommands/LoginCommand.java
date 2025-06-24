@@ -1,14 +1,14 @@
-package org.example.commands;
+package org.example.commands.clientRegistrationCommands;
 
+import org.example.commands.Command;
 import org.example.database.LoginRepository;
 import org.example.model.MessageFactory;
 import org.example.network.ClientManager;
-import org.example.network.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoginCommand implements Command{
+public class LoginCommand implements Command {
 
     private final LoginRepository loginRepository;
     private final ClientManager clientManager;
@@ -28,5 +28,10 @@ public class LoginCommand implements Command{
         clientManager.getClient(Integer.parseInt(port)).setUsername(username);
         boolean isLogin = loginRepository.isLoginSuccess(username, hashPass);
         return MessageFactory.login(isLogin, username);
+    }
+
+    @Override
+    public String getCommandName(){
+        return "login";
     }
 }

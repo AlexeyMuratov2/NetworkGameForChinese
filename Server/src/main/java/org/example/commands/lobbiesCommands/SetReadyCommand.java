@@ -1,5 +1,6 @@
-package org.example.commands;
+package org.example.commands.lobbiesCommands;
 
+import org.example.commands.Command;
 import org.example.model.MessageFactory;
 import org.example.network.ClientManager;
 import org.example.network.GameSession;
@@ -8,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SetReadyCommand implements Command{
+public class SetReadyCommand implements Command {
     private final ClientManager clientManager;
     private final SessionManager sessionManager;
 
@@ -25,7 +26,17 @@ public class SetReadyCommand implements Command{
         boolean isReady = parts[1].equals("true");
         clientManager.getClientHandlerByName(username).setReady(isReady);
         GameSession session = sessionManager.getSessionByName(username);
-        session.sendMessageToSession(MessageFactory.updateLobbyInfo(session.getClientHandlersInSession()));
+
+        if(session.isReadyToPlay()){
+            session.startRandomGame();
+        }else{
+            session.sendMessageToSession(MessageFactory.updateLobbyInfo(session.getClientHandlersInSession()));
+        }
         return MessageFactory.ignoreMessage();
+    }
+
+    @Override
+    public String getCommandName(){
+        return "setReady";
     }
 }

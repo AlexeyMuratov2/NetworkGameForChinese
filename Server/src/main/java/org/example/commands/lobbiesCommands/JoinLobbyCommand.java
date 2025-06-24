@@ -1,5 +1,6 @@
-package org.example.commands;
+package org.example.commands.lobbiesCommands;
 
+import org.example.commands.Command;
 import org.example.model.MessageFactory;
 import org.example.network.GameSession;
 import org.example.network.SessionManager;
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JoinLobbyCommand implements Command{
+public class JoinLobbyCommand implements Command {
     private final SessionManager sessionManager;
 
     @Autowired
@@ -25,5 +26,10 @@ public class JoinLobbyCommand implements Command{
         session.addPlayer(username);
         session.updateLobbyInfoForAllUsers();
         return MessageFactory.lobbyJoined(true, session.getClientHandlersInSession());
+    }
+
+    @Override
+    public String getCommandName(){
+        return "joinLobby";
     }
 }

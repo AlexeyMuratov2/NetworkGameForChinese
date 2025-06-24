@@ -1,7 +1,6 @@
-package org.example.commands;
+package org.example.commands.lobbiesCommands;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.example.commands.Command;
 import org.example.network.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 @Component
-public class GetLobbyCommand implements Command{
+public class GetLobbyCommand implements Command {
     private SessionManager sessionManager;
     private static Logger logger = Logger.getLogger(GetLobbyCommand.class.getName());
 
@@ -22,5 +21,10 @@ public class GetLobbyCommand implements Command{
     public String execute(String args) {
         logger.info(args);
         return "я забыл что делает эта хуйня";
+    }
+
+    @Override
+    public String getCommandName(){
+        return "getLobby";
     }
 }

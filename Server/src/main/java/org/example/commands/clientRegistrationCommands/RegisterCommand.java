@@ -1,5 +1,6 @@
-package org.example.commands;
+package org.example.commands.clientRegistrationCommands;
 
+import org.example.commands.Command;
 import org.example.database.RegisterRepository;
 import org.example.model.MessageFactory;
 import org.example.network.ClientManager;
@@ -7,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RegisterCommand implements Command{
+public class RegisterCommand implements Command {
     private RegisterRepository registerRepository;
     private ClientManager clientManager;
 
@@ -26,5 +27,10 @@ public class RegisterCommand implements Command{
         clientManager.getClient(Integer.parseInt(port)).setUsername(username);
         boolean success = registerRepository.register(username, passwdHash);
         return MessageFactory.register(success, username);
+    }
+
+    @Override
+    public String getCommandName(){
+        return "register";
     }
 }

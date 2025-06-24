@@ -9,4 +9,9 @@ public class HelloCommand implements Command {
     public String execute(String args) {
         return MessageFactory.echo(args);
     }
+
+    @Override
+    public String getCommandName(){
+        return "hello";
+    }
 }

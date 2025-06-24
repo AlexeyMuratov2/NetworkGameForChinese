@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import javax.swing.*;
 import java.awt.*;
 import java.util.logging.Logger;
+import java.util.List;
 
 @Component
 public class MainFrame extends JFrame {
@@ -14,20 +15,16 @@ public class MainFrame extends JFrame {
     private final JPanel panelContainer = new JPanel(cardLayout);
 
     @Autowired
-    private MainFrame(LoginPanel loginPanel,
-                      RegisterPanel registerPanel,
-                      LobbiesPanel lobbiesPanel,
-                      GameLobbyPanel GameLobbyPanel){
+    public MainFrame(List<Panel> panelList) {
 
         setTitle("Game view");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1280,900);
         setLocationRelativeTo(null);
 
-        panelContainer.add(loginPanel, String.valueOf(Panels.LOGIN));
-        panelContainer.add(registerPanel, String.valueOf(Panels.REGISTER));
-        panelContainer.add(lobbiesPanel, String.valueOf(Panels.LOBBIES));
-        panelContainer.add(GameLobbyPanel, String.valueOf(Panels.GAME_LOBBY));
+        for(Panel panel : panelList) {
+            panelContainer.add(panel.asComponent(), String.valueOf(panel.getPanelName()));
+        }
 
         setContentPane(panelContainer);
         setVisible(true);

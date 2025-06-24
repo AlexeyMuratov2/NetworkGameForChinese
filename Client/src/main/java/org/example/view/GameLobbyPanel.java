@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Getter
 @Component
-public class GameLobbyPanel extends JPanel {
+public class GameLobbyPanel extends JPanel implements Panel{
 
     private static final int MAX_PLAYERS = 4;
 
@@ -134,5 +134,15 @@ public class GameLobbyPanel extends JPanel {
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, getWidth(), getHeight());
         }
+    }
+
+    @Override
+    public java.awt.Component asComponent() {
+        return this;
+    }
+
+    @Override
+    public String getPanelName() {
+        return Panels.GAME_LOBBY.toString();
     }
 }

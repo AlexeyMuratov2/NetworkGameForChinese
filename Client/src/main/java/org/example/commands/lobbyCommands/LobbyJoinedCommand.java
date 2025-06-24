@@ -1,5 +1,6 @@
-package org.example.commands;
+package org.example.commands.lobbyCommands;
 
+import org.example.commands.Command;
 import org.example.controllers.LobbyPanelController;
 import org.example.model.ClientContext;
 import org.example.view.GameLobbyPanel;
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.logging.Logger;
 
 @Component
-public class LobbyJoinedCommand implements Command{
+public class LobbyJoinedCommand implements Command {
     private static final Logger logger = Logger.getLogger(LobbyJoinedCommand.class.getName());
     private final ClientContext clientContext;
     private final GameLobbyPanel gameLobbyPanel;
@@ -22,6 +23,11 @@ public class LobbyJoinedCommand implements Command{
         this.clientContext = clientContext;
         this.gameLobbyPanel = gameLobbyPanel;
         this.mainFrame = mainFrame;
+    }
+
+    @Override
+    public String getName() {
+        return "lobbyJoined";
     }
 
     @Override
