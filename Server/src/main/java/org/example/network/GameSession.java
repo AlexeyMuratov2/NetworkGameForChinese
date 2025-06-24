@@ -41,8 +41,17 @@ public class GameSession {
         return String.join(",", players);
     }
 
+    public List<ClientHandler> getClientHandlersInSession(){
+        List<ClientHandler> clientsInSession = new ArrayList<>();
+        for (String clientName : this.getDisplayName().split(",")){
+            clientsInSession.add(clientManager.getClientHandlerByName(clientName));
+        }
+        return clientsInSession;
+    }
+
     public void updateLobbyInfoForAllUsers() {
-        String msg = MessageFactory.updateLobbyInfo(this.getDisplayName());
+        List<ClientHandler> clientsInSession = this.getClientHandlersInSession();
+        String msg = MessageFactory.updateLobbyInfo(clientsInSession);
         for (String username : players) {
             clientManager.getClientHandlerByName(username).sendMessage(msg);
         }

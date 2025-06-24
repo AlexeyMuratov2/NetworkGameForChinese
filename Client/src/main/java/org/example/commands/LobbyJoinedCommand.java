@@ -32,7 +32,7 @@ public class LobbyJoinedCommand implements Command{
         if (result.equals("success")) {
             mainFrame.switchTo(Panels.GAME_LOBBY);
             for (int i = 0; i < players.length; i++) {
-                gameLobbyPanel.updatePlayerSlot(i, players[i]);
+                gameLobbyPanel.updatePlayerSlot(i, players[i], false);
                 logger.info("set player " + i + " to " + players[i]);
             }
         }

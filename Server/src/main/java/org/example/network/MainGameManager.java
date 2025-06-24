@@ -4,6 +4,7 @@ import org.example.model.MessageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
@@ -29,14 +30,13 @@ public class MainGameManager {
             }
 
             String currentUsername = clientHandler.getUsername();
-            String playersInLobby = session.getDisplayName();
+            List<ClientHandler> playersInLobby = session.getClientHandlersInSession();
 
-            String cleanPlayers =
-                    java.util.Arrays.stream(playersInLobby.split(","))
-                            .filter(name -> !name.equals(currentUsername))
-                            .collect(Collectors.joining(","));
+            List<ClientHandler> otherPlayers = playersInLobby.stream()
+                    .filter(handler -> !handler.getUsername().equals(currentUsername))
+                    .toList();
 
-            session.sendMessageToSession(MessageFactory.updateLobbyInfo(cleanPlayers));
+            session.sendMessageToSession(MessageFactory.updateLobbyInfo(otherPlayers));
 
         } catch (Exception e) {
             logger.severe("Error while updating lobby info: " + e.getMessage());

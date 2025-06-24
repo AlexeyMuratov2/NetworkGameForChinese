@@ -1,6 +1,9 @@
 package org.example.model;
 
+import org.example.network.ClientHandler;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 public class MessageFactory {
 
@@ -24,8 +27,16 @@ public class MessageFactory {
         return "StartGame " + gameName;
     }
 
-    public static String updateLobbyInfo(String usersInLobby){
-        return "updateLobbyInfo " + usersInLobby;
+    public static String updateLobbyInfo(List<ClientHandler> usersInLobby){
+        StringBuilder msg = new StringBuilder("updateLobbyInfo (");
+        for (ClientHandler client : usersInLobby){
+            msg.append(client.getUsername());
+            msg.append(",");
+            msg.append(client.isReady());
+            msg.append(",");
+        }
+        msg.append(")");
+        return msg.toString();
     }
 
     public static String updateLobbiesList(String sessionNames) {
