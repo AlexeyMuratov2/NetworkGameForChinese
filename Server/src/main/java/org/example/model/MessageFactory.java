@@ -60,5 +60,9 @@ public class MessageFactory {
     public static String makeMove(String gameName, String usernamesInLobby, String args){
         return "makeMove " + gameName + " " + usernamesInLobby + " (" + args + ")";
     }
+
+    public static String finishGame(String gameName, String usersInLobby, String args){
+        return "finishGame " + gameName + " " + " " + usersInLobby + " (" + args + ")";
+    }
 }
 

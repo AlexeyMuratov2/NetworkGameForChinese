@@ -36,7 +36,6 @@ public class SendAnswerCommand implements Command {
         int move = Integer.parseInt(parts[2]);
 
         String msgArgs = GameCommandParser.extractFirstBracketContent(args).orElse("");
-        logger.info("executing SendAnswerCommand4");
         GameStrategy game = gameStrategyFactory.getGameByName(gameName);
         String msg = game.getOnMoveMessage(userName, move, msgArgs);
         logger.info("message is: " + msg);

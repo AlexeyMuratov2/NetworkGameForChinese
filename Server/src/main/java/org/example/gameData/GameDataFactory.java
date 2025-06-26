@@ -1,17 +1,21 @@
 package org.example.gameData;
 
+import org.example.network.SessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 @Component
 public class GameDataFactory {
     private Map<GamesName, Map<String, PlayerGameData>> playerDataStorage = new ConcurrentHashMap<>();
+    @Autowired
+    private SessionManager sessionManager;
 
     @SuppressWarnings("unchecked")
     public <T extends PlayerGameData> T getOrCreateGameData(GamesName gameName, String username, Class<T> clazz) {

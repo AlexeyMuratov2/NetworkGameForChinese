@@ -1,5 +1,6 @@
 package org.example.model;
 
+import org.example.gameData.PlayerGameData;
 import org.example.network.GameSession;
 
 public interface GameStrategy {
