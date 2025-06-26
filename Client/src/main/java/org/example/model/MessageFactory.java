@@ -24,4 +24,8 @@ public class MessageFactory {
     public static String setReady(String username, boolean isReady) {
         return "setReady " + username + " " + isReady;
     }
+
+    public static String sendAnswer(String gameName, String username, Integer move, String args) {
+        return "sendAnswer " + gameName + " " + username + " " + move + " (" + args + ")";
+    }
 }

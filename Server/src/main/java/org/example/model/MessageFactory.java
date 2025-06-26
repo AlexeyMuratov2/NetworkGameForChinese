@@ -53,8 +53,12 @@ public class MessageFactory {
         return "ignore this message";
     }
 
-    public static String startGame(String gameName, String usernamesInLobby){
-        return "startGame "+ gameName + " " + usernamesInLobby;
+    public static String startGame(String gameName, String usernamesInLobby, String args){
+        return "startGame "+ gameName + " " + usernamesInLobby + " (" + args + ")";
+    }
+
+    public static String makeMove(String gameName, String usernamesInLobby, String args){
+        return "makeMove " + gameName + " " + usernamesInLobby + " (" + args + ")";
     }
 }
 

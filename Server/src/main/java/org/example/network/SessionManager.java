@@ -38,6 +38,7 @@ public class SessionManager {
 
     public Collection<GameSession> getAllSessions() {
         return sessions.values();
+
     }
 
     public List<String> getSessionDisplayNames() {

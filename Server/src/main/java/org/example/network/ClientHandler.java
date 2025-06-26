@@ -21,13 +21,11 @@ public class ClientHandler implements Runnable{
     private final DataOutputStream dataOutputStream;
     private final DataInputStream dataInputStream;
     private final Socket socket;
-    @Getter
-    @Setter
+    @Getter @Setter
     private String username;
     @Getter
     private Integer PORT;
-    @Getter
-    @Setter
+    @Getter @Setter
     private boolean isReady = false;
     private volatile boolean running = true;
     private CommandManager commandManager;
@@ -67,7 +65,7 @@ public class ClientHandler implements Runnable{
                 socket.close();
                 dataOutputStream.close();
                 dataInputStream.close();
-                logger.info("Client disconnected");
+                logger.info("Client disconnected" + this.username);
                 mainGameManager.onClientDisconnect(this);
             } catch (IOException e) {
                 logger.severe(e.getMessage());

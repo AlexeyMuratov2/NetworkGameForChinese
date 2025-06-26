@@ -6,7 +6,6 @@ import org.example.database.AppConfig;
 import org.example.database.DatabaseSetupRepository;
 import org.example.model.ApplicationContextHolder;
 import org.example.network.ServerMain;
-import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.util.concurrent.ExecutorService;

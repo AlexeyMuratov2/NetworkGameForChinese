@@ -76,6 +76,7 @@ public class ClientConnectionHandler implements Runnable {
                 handleMessage(message);
             } catch (IOException e) {
                 logger.log(Level.SEVERE, "Exception in readMessages", e);
+                this.stop();
             }
         }
     }
